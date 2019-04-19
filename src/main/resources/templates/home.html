@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Spring WebSocket SSE</title>
+<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script type="text/javascript">
+	var stompClient;
+	/* Document Ready Event */
+	$(document).ready(function() {
+		/* Configuring WebSocket on Client Side */
+		var socket = new SockJS('/live-msg');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function(frame) {
+			stompClient.subscribe('/topic/msg', function(temperature) {
+			    console.dir(temperature);
+				$('#msg').append(temperature.body);
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="alert alert-danger" role="alert" style="width:300px;margin-left:40%;margin-top:10px;">
+		<p class="text-center">Message From Server: <b id="msg">=></b></p>
+	</div>
+</body>
+</html>

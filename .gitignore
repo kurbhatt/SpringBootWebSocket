@@ -1,0 +1,20 @@
+target
+logs
+
+.settings
+.classpath
+.project
+.metadata
+
+.DS_Store
+
+# PROJECT SPECIFIC IGNORES
+
+# INTELLIJ IDEA IGNORES
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Ignore Config Specific file.
+#application.properties
