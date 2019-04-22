@@ -17,7 +17,7 @@ public class DataController {
 
     @GetMapping("/send")
     public String sendSomething(Model model, @RequestParam("message") String message) {
-        template.convertAndSend("/topic/msg", message);
+        template.convertAndSendToUser("keyur","/topic/msg/specific-user", message);
         return "success";
     }
 }

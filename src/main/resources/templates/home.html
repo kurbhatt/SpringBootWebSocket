@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns = "http://www.w3.org/1999/xhtml" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="ISO-8859-1">
 <title>Spring WebSocket SSE</title>
@@ -11,11 +12,14 @@
 	var stompClient;
 	/* Document Ready Event */
 	$(document).ready(function() {
+        let currentUser = document.getElementById("current_user").value;
+        console.dir(currentUser);
 		/* Configuring WebSocket on Client Side */
 		var socket = new SockJS('/live-msg');
 		stompClient = Stomp.over(socket);
+		debugger;
 		stompClient.connect({}, function(frame) {
-			stompClient.subscribe('/topic/msg', function(temperature) {
+			stompClient.subscribe('/topic/msg/specific-user-keyur', function(temperature) {
 			    console.dir(temperature);
 				$('#msg').append(temperature.body);
 			});
@@ -24,6 +28,7 @@
 </script>
 </head>
 <body>
+    <input type="hidden" th:id="current_user" th:name="current_user" th:value="${#httpServletRequest.remoteUser}" />
 	<div class="alert alert-danger" role="alert" style="width:300px;margin-left:40%;margin-top:10px;">
 		<p class="text-center">Message From Server: <b id="msg">=></b></p>
 	</div>

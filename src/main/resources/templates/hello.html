@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:sec = "http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Hello World!</title>
+</head>
+<body>
+<h1 th:inline = "text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<input type="hidden" th:id="current_user" th:name="current_user" th:value="${#httpServletRequest.remoteUser}" />
+<form th:action = "@{/logout}" method = "post">
+    <input type = "submit" value = "Sign Out"/>
+</form>
+<script th:inline="javascript">
+    console.dir(document.getElementById("current_user"));
+    console.dir(document.getElementById("current_user").value);
+</script>
+</body>
+</html>
