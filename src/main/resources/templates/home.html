@@ -17,9 +17,8 @@
 		/* Configuring WebSocket on Client Side */
 		var socket = new SockJS('/live-msg');
 		stompClient = Stomp.over(socket);
-		debugger;
 		stompClient.connect({}, function(frame) {
-			stompClient.subscribe('/topic/msg/specific-user-keyur', function(temperature) {
+			stompClient.subscribe('/user/'+currentUser+'/msg', function(temperature) {
 			    console.dir(temperature);
 				$('#msg').append(temperature.body);
 			});
